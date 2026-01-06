@@ -155,8 +155,15 @@ const Login = () => {
   const handleGoogleSignIn = async () => {
     setLoading(true);
     try {
+      // Redirect URL'i dinamik olarak ayarla (base path dahil)
+      const basePath = import.meta.env.BASE_URL || "/";
+      const redirectUrl = `${window.location.origin}${basePath}${basePath.endsWith("/") ? "" : "/"}dashboard`;
+      
       const { error } = await supabase.auth.signInWithOAuth({
         provider: "google",
+        options: {
+          redirectTo: redirectUrl,
+        },
         options: {
           redirectTo: `${window.location.origin}/dashboard`,
         },
