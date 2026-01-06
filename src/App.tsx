@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -13,6 +15,28 @@ import ResetPassword from "./pages/ResetPassword";
 
 const queryClient = new QueryClient();
 
+// GitHub Pages SPA routing handler - ?/path formatını düzelt
+const SPAHandler = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // URL'de ?/ formatı varsa (GitHub Pages SPA routing)
+    const searchParams = new URLSearchParams(location.search);
+    const spaPath = searchParams.get("/");
+    
+    if (spaPath) {
+      // ~and~ karakterlerini &'ye çevir
+      const decodedPath = spaPath.replace(/~and~/g, "&");
+      // Hash'i koru ama query string'i temizle
+      const hash = location.hash;
+      navigate(decodedPath + hash, { replace: true });
+    }
+  }, [location, navigate]);
+
+  return null;
+};
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
@@ -25,6 +49,7 @@ const App = () => (
           v7_relativeSplatPath: true,
         }}
       >
+        <SPAHandler />
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/login" element={<Login />} />
