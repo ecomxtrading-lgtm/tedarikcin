@@ -258,10 +258,27 @@ const AdminDashboard = () => {
         navigate("/login");
         return;
       }
+      
+      // Debug: Admin kontrolü öncesi bilgi
+      if (import.meta.env.MODE === "production") {
+        console.log("🔍 Admin kontrolü:", {
+          userEmail,
+          adminCheckResult: isAdminEmail(userEmail),
+        });
+      }
+      
       if (!isAdminEmail(userEmail)) {
+        if (import.meta.env.MODE === "production") {
+          console.warn("⚠️ Admin değil, dashboard'a yönlendiriliyor");
+        }
         navigate("/dashboard");
         return;
       }
+      
+      if (import.meta.env.MODE === "production") {
+        console.log("✅ Admin doğrulandı, veriler yükleniyor...");
+      }
+      
       await fetchOffers();
       await fetchCustomers();
     };
