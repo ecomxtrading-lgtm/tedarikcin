@@ -19,9 +19,5 @@ export default defineConfig(({ mode }) => {
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  define: {
-    // Environment variables'ı build-time'da replace et
-    'import.meta.env.VITE_ADMIN_EMAILS': JSON.stringify(process.env.VITE_ADMIN_EMAILS || ''),
-  },
   };
 });
