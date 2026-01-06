@@ -5,7 +5,8 @@ import { componentTagger } from "lovable-tagger";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
-  const base = mode === "production" ? "/tedarikcin/" : "/";
+  // GitHub Pages için base path
+  const base = process.env.NODE_ENV === "production" || mode === "production" ? "/tedarikcin/" : "/";
   return {
   base,
   server: {
