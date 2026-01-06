@@ -87,6 +87,56 @@ const Dashboard = () => {
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
   const navigate = useNavigate();
 
+  // OAuth callback handler
+  useEffect(() => {
+    const handleOAuthCallback = async () => {
+      // URL hash'inden OAuth callback parametrelerini kontrol et
+      const hashParams = new URLSearchParams(window.location.hash.substring(1));
+      const accessToken = hashParams.get("access_token");
+      const refreshToken = hashParams.get("refresh_token");
+      const error = hashParams.get("error");
+      const errorDescription = hashParams.get("error_description");
+
+      // Eğer hata varsa
+      if (error) {
+        toast.error(`OAuth hatası: ${errorDescription || error}`, {
+          position: "top-center",
+          className: "border border-destructive",
+        });
+        // Hash'i temizle ve login sayfasına yönlendir
+        window.history.replaceState(null, "", window.location.pathname);
+        navigate("/login");
+        return;
+      }
+
+      // Eğer token'lar varsa, session'ı ayarla
+      if (accessToken && refreshToken) {
+        const { error: sessionError } = await supabase.auth.setSession({
+          access_token: accessToken,
+          refresh_token: refreshToken,
+        });
+
+        if (sessionError) {
+          toast.error("Oturum kurulamadı. Lütfen tekrar deneyin.", {
+            position: "top-center",
+            className: "border border-destructive",
+          });
+          navigate("/login");
+          return;
+        }
+
+        // Hash'i temizle
+        window.history.replaceState(null, "", window.location.pathname);
+        toast.success("Giriş başarılı!", {
+          position: "top-center",
+          className: "border border-destructive/60",
+        });
+      }
+    };
+
+    void handleOAuthCallback();
+  }, [navigate]);
+
   useEffect(() => {
     const fetchUser = async () => {
       setIsUserLoading(true);
