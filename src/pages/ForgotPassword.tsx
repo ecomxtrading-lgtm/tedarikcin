@@ -18,8 +18,17 @@ const ForgotPassword = () => {
     }
     setLoading(true);
     try {
+      // Password reset redirect URL'i dinamik olarak ayarla (base path dahil)
+      // Production'da basePath "/tedarikcin/" olacak, development'ta "/"
+      const basePath = import.meta.env.BASE_URL || "/";
+      // Base path'i normalize et (başında ve sonunda / olmalı)
+      const normalizedBasePath = basePath.startsWith("/") ? basePath : `/${basePath}`;
+      const finalBasePath = normalizedBasePath.endsWith("/") ? normalizedBasePath : `${normalizedBasePath}/`;
+      // Tam URL oluştur - reset sayfasına yönlendir
+      const resetRedirectUrl = `${window.location.origin}${finalBasePath}reset`;
+      
       const { error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: `${window.location.origin}/reset`,
+        redirectTo: resetRedirectUrl,
       });
       if (error) throw error;
       setSent(true);

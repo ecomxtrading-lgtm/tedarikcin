@@ -166,8 +166,13 @@ const Login = () => {
     setLoading(true);
     try {
       // Redirect URL'i dinamik olarak ayarla (base path dahil)
+      // Production'da basePath "/tedarikcin/" olacak, development'ta "/"
       const basePath = import.meta.env.BASE_URL || "/";
-      const redirectUrl = `${window.location.origin}${basePath}${basePath.endsWith("/") ? "" : "/"}dashboard`;
+      // Base path'i normalize et (başında ve sonunda / olmalı)
+      const normalizedBasePath = basePath.startsWith("/") ? basePath : `/${basePath}`;
+      const finalBasePath = normalizedBasePath.endsWith("/") ? normalizedBasePath : `${normalizedBasePath}/`;
+      // Tam URL oluştur - dashboard'a yönlendir
+      const redirectUrl = `${window.location.origin}${finalBasePath}dashboard`;
       
       const { error } = await supabase.auth.signInWithOAuth({
         provider: "google",
@@ -195,8 +200,13 @@ const Login = () => {
     setLoading(true);
     try {
       // Password reset redirect URL'i dinamik olarak ayarla (base path dahil)
+      // Production'da basePath "/tedarikcin/" olacak, development'ta "/"
       const basePath = import.meta.env.BASE_URL || "/";
-      const resetRedirectUrl = `${window.location.origin}${basePath}${basePath.endsWith("/") ? "" : "/"}reset`;
+      // Base path'i normalize et (başında ve sonunda / olmalı)
+      const normalizedBasePath = basePath.startsWith("/") ? basePath : `/${basePath}`;
+      const finalBasePath = normalizedBasePath.endsWith("/") ? normalizedBasePath : `${normalizedBasePath}/`;
+      // Tam URL oluştur - reset sayfasına yönlendir
+      const resetRedirectUrl = `${window.location.origin}${finalBasePath}reset`;
       
       const { error } = await supabase.auth.resetPasswordForEmail(email, {
         redirectTo: resetRedirectUrl,
