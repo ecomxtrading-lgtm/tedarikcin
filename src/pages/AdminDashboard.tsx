@@ -259,24 +259,9 @@ const AdminDashboard = () => {
         return;
       }
       
-      // Debug: Admin kontrolü öncesi bilgi
-      if (import.meta.env.MODE === "production") {
-        console.log("🔍 Admin kontrolü:", {
-          userEmail,
-          adminCheckResult: isAdminEmail(userEmail),
-        });
-      }
-      
       if (!isAdminEmail(userEmail)) {
-        if (import.meta.env.MODE === "production") {
-          console.warn("⚠️ Admin değil, dashboard'a yönlendiriliyor");
-        }
         navigate("/dashboard");
         return;
-      }
-      
-      if (import.meta.env.MODE === "production") {
-        console.log("✅ Admin doğrulandı, veriler yükleniyor...");
       }
       
       await fetchOffers();
@@ -400,7 +385,6 @@ const AdminDashboard = () => {
         .select(`*, product_images ( url, sort_order )`)
         .eq("customer_id", c.userId);
       if (error) {
-        console.error("Müşteri ürünleri yüklenirken hata:", error);
         toast.error("Müşteri ürünleri yüklenemedi.");
         setCustomerProductsCache((m) => ({ ...m, [c.userId]: [] }));
         return;
@@ -423,7 +407,7 @@ const AdminDashboard = () => {
                 .createSignedUrl(url, 60 * 60 * 24 * 7);
               if (!signedError && signed?.signedUrl) resolvedUrls.push(signed.signedUrl);
             } catch (err) {
-              console.error("Signed url alırken hata:", err);
+              // Signed URL alınamadı, devam et
             }
           }
         }
@@ -432,7 +416,6 @@ const AdminDashboard = () => {
 
       setCustomerProductsCache((m) => ({ ...m, [c.userId]: resolved || [] }));
     } catch (err) {
-      console.error("Müşteri ürünleri yüklenirken beklenmeyen hata:", err);
       toast.error("Müşteri ürünleri yüklenemedi.");
       setCustomerProductsCache((m) => ({ ...m, [c.userId]: [] }));
     }
@@ -542,7 +525,7 @@ const AdminDashboard = () => {
                 .createSignedUrl(url, 60 * 60 * 24 * 7);
             if (!signedError && signed?.signedUrl) resolvedUrls.push(signed.signedUrl);
           } catch (err) {
-            console.error("Signed url alırken hata:", err);
+            // Signed URL alınamadı, devam et
           }
         }
       }
@@ -651,7 +634,6 @@ const AdminDashboard = () => {
                 .upload(filePath, file);
 
               if (uploadErr) {
-                console.error("Görsel yüklenirken hata:", uploadErr);
                 continue;
               }
 
@@ -752,13 +734,11 @@ const AdminDashboard = () => {
         .order("created_at", { ascending: false });
       
       if (error) {
-        console.error("Müşteriler alınırken hata:", error);
         toast.error(`Müşteriler alınamadı: ${error.message}`);
         return;
       }
       
       if (!data || data.length === 0) {
-        console.log("Müşteri bulunamadı");
         setCustomers([]);
         return;
       }
@@ -772,9 +752,7 @@ const AdminDashboard = () => {
       }));
       
       setCustomers(mapped);
-      console.log(`${mapped.length} müşteri yüklendi`);
     } catch (err) {
-      console.error("Müşteriler alınırken beklenmeyen hata:", err);
       toast.error("Müşteriler alınırken bir hata oluştu.");
     }
   };
