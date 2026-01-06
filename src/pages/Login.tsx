@@ -164,9 +164,6 @@ const Login = () => {
         options: {
           redirectTo: redirectUrl,
         },
-        options: {
-          redirectTo: `${window.location.origin}/dashboard`,
-        },
       });
 
       if (error) {
