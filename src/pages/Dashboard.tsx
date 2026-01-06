@@ -91,7 +91,12 @@ const Dashboard = () => {
   useEffect(() => {
     const handleOAuthCallback = async () => {
       // URL hash'inden OAuth callback parametrelerini kontrol et
-      const hashParams = new URLSearchParams(window.location.hash.substring(1));
+      const hash = window.location.hash;
+      if (!hash || hash.length <= 1) {
+        return; // Hash yoksa veya sadece # varsa işlem yapma
+      }
+
+      const hashParams = new URLSearchParams(hash.substring(1));
       const accessToken = hashParams.get("access_token");
       const refreshToken = hashParams.get("refresh_token");
       const error = hashParams.get("error");
@@ -104,7 +109,8 @@ const Dashboard = () => {
           className: "border border-destructive",
         });
         // Hash'i temizle ve login sayfasına yönlendir
-        window.history.replaceState(null, "", window.location.pathname);
+        const cleanPath = window.location.pathname + (window.location.search || "");
+        window.history.replaceState(null, "", cleanPath);
         navigate("/login");
         return;
       }
@@ -125,8 +131,9 @@ const Dashboard = () => {
           return;
         }
 
-        // Hash'i temizle
-        window.history.replaceState(null, "", window.location.pathname);
+        // Hash'i temizle - sadece pathname ve search varsa onları koru
+        const cleanPath = window.location.pathname + (window.location.search || "");
+        window.history.replaceState(null, "", cleanPath);
         toast.success("Giriş başarılı!", {
           position: "top-center",
           className: "border border-destructive/60",
@@ -134,7 +141,12 @@ const Dashboard = () => {
       }
     };
 
-    void handleOAuthCallback();
+    // Kısa bir gecikme ekle ki SPAHandler önce URL'i düzeltsin
+    const timer = setTimeout(() => {
+      void handleOAuthCallback();
+    }, 100);
+
+    return () => clearTimeout(timer);
   }, [navigate]);
 
   useEffect(() => {

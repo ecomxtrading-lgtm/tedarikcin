@@ -22,17 +22,34 @@ const SPAHandler = () => {
 
   useEffect(() => {
     // URL'de ?/ formatı varsa (GitHub Pages SPA routing)
-    const searchParams = new URLSearchParams(location.search);
-    const spaPath = searchParams.get("/");
+    // Örnek: /?/dashboard#access_token=...
+    const search = window.location.search;
     
-    if (spaPath) {
+    if (search.startsWith("?/")) {
+      // ?/dashboard formatından dashboard kısmını al
+      let spaPath = search.substring(2); // "?/" kısmını atla
+      
+      // Eğer query string'de & varsa, ilk &'den öncesini al (path kısmı)
+      const andIndex = spaPath.indexOf("&");
+      if (andIndex !== -1) {
+        spaPath = spaPath.substring(0, andIndex);
+      }
+      
       // ~and~ karakterlerini &'ye çevir
-      const decodedPath = spaPath.replace(/~and~/g, "&");
-      // Hash'i koru ama query string'i temizle
-      const hash = location.hash;
-      navigate(decodedPath + hash, { replace: true });
+      spaPath = spaPath.replace(/~and~/g, "&");
+      
+      // Path / ile başlamalı
+      if (!spaPath.startsWith("/")) {
+        spaPath = "/" + spaPath;
+      }
+      
+      // Hash'i koru
+      const hash = window.location.hash;
+      
+      // Navigate et (replace: true ile URL'i temizle)
+      navigate(spaPath + hash, { replace: true });
     }
-  }, [location, navigate]);
+  }, [location.search, navigate]);
 
   return null;
 };
