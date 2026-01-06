@@ -19,7 +19,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter
-        basename={import.meta.env.BASE_URL}
+        basename={import.meta.env.BASE_URL || "/tedarikcin"}
         future={{
           v7_startTransition: true,
           v7_relativeSplatPath: true,
