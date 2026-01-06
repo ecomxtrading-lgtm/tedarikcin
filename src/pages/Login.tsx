@@ -126,11 +126,16 @@ const Login = () => {
           setLoading(false);
           return;
         }
+        // Email confirmation redirect URL'i dinamik olarak ayarla (base path dahil)
+        const basePath = import.meta.env.BASE_URL || "/";
+        const confirmRedirectUrl = `${window.location.origin}${basePath}${basePath.endsWith("/") ? "" : "/"}login`;
+        
         const { data, error } = await supabase.auth.signUp({
           email,
           password,
           options: {
             data: { name, phone: normalizedPhone },
+            emailRedirectTo: confirmRedirectUrl,
           },
         });
 
@@ -184,8 +189,12 @@ const Login = () => {
     }
     setLoading(true);
     try {
+      // Password reset redirect URL'i dinamik olarak ayarla (base path dahil)
+      const basePath = import.meta.env.BASE_URL || "/";
+      const resetRedirectUrl = `${window.location.origin}${basePath}${basePath.endsWith("/") ? "" : "/"}reset`;
+      
       const { error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: `${window.location.origin}/login`,
+        redirectTo: resetRedirectUrl,
       });
       if (error) throw error;
       toast.success("Şifre sıfırlama bağlantısı e-postanıza gönderildi.", { position: "top-center", className: "border border-destructive/60" });
