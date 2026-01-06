@@ -15,7 +15,14 @@ AS $$
 DECLARE
   user_email text;
   jwt_role text;
+  user_id uuid;
 BEGIN
+  -- auth.uid() kontrolü
+  user_id := auth.uid();
+  IF user_id IS NULL THEN
+    RETURN false;
+  END IF;
+  
   -- Önce JWT'deki role'ü kontrol et (daha hızlı)
   jwt_role := auth.jwt() ->> 'role';
   IF jwt_role = 'admin' THEN
@@ -25,10 +32,15 @@ BEGIN
   -- JWT'de role yoksa email kontrolü yap
   SELECT email INTO user_email
   FROM auth.users
-  WHERE id = auth.uid();
+  WHERE id = user_id;
   
-  -- Admin email'leri kontrol et
-  RETURN user_email IN (
+  -- Email null ise false döndür
+  IF user_email IS NULL THEN
+    RETURN false;
+  END IF;
+  
+  -- Admin email'leri kontrol et (case-insensitive)
+  RETURN LOWER(user_email) IN (
     'huralomer@gmail.com'
     -- Yeni admin email'leri eklemek için buraya ekleyin:
     -- 'admin2@example.com',
