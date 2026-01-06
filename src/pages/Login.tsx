@@ -127,8 +127,13 @@ const Login = () => {
           return;
         }
         // Email confirmation redirect URL'i dinamik olarak ayarla (base path dahil)
+        // Production'da basePath "/tedarikcin/" olacak, development'ta "/"
         const basePath = import.meta.env.BASE_URL || "/";
-        const confirmRedirectUrl = `${window.location.origin}${basePath}${basePath.endsWith("/") ? "" : "/"}login`;
+        // Base path'i normalize et (başında ve sonunda / olmalı)
+        const normalizedBasePath = basePath.startsWith("/") ? basePath : `/${basePath}`;
+        const finalBasePath = normalizedBasePath.endsWith("/") ? normalizedBasePath : `${normalizedBasePath}/`;
+        // Tam URL oluştur - dashboard'a yönlendir
+        const confirmRedirectUrl = `${window.location.origin}${finalBasePath}dashboard`;
         
         const { data, error } = await supabase.auth.signUp({
           email,
