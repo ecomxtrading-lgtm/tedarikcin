@@ -786,7 +786,7 @@ const AdminDashboard = () => {
             <button
               onClick={() => { setActiveTab("offers"); setOfferFilter("all"); }}
               className={`block w-full text-left px-4 py-2 rounded-lg font-medium transition-colors ${
-                activeTab === "offers" && offerFilter === "all" ? "bg-white/10 text-white" : "text-black hover:text-white hover:bg-white/10"
+                activeTab === "offers" && offerFilter === "all" ? "bg-white/10 text-white" : "text-white/70 hover:text-white hover:bg-white/10"
               }`}
             >
               Gelen Teklifler
@@ -795,7 +795,7 @@ const AdminDashboard = () => {
             <button
               onClick={() => { setActiveTab("offers"); setOfferFilter("bekleyen"); }}
               className={`block w-full text-left px-4 py-2 rounded-lg font-medium transition-colors ${
-                activeTab === "offers" && offerFilter === "bekleyen" ? "bg-white/10 text-white" : "text-black hover:text-white hover:bg-white/10"
+                activeTab === "offers" && offerFilter === "bekleyen" ? "bg-white/10 text-white" : "text-white/70 hover:text-white hover:bg-white/10"
               }`}
             >
               Bekleyen Teklifler
@@ -804,7 +804,7 @@ const AdminDashboard = () => {
             <button
               onClick={() => { setActiveTab("offers"); setOfferFilter("gonderilen"); }}
               className={`block w-full text-left px-4 py-2 rounded-lg font-medium transition-colors ${
-                activeTab === "offers" && offerFilter === "gonderilen" ? "bg-white/10 text-white" : "text-black hover:text-white hover:bg-white/10"
+                activeTab === "offers" && offerFilter === "gonderilen" ? "bg-white/10 text-white" : "text-white/70 hover:text-white hover:bg-white/10"
               }`}
             >
               Gönderilen Teklifler
@@ -813,7 +813,7 @@ const AdminDashboard = () => {
             <button
               onClick={() => { setActiveTab("offers"); setOfferFilter("tamamlanan"); }}
               className={`block w-full text-left px-4 py-2 rounded-lg font-medium transition-colors ${
-                activeTab === "offers" && offerFilter === "tamamlanan" ? "bg-white/10 text-white" : "text-black hover:text-white hover:bg-white/10"
+                activeTab === "offers" && offerFilter === "tamamlanan" ? "bg-white/10 text-white" : "text-white/70 hover:text-white hover:bg-white/10"
               }`}
             >
               Tamamlanan Teklifler
@@ -824,14 +824,14 @@ const AdminDashboard = () => {
             <button
               onClick={() => setActiveTab("customers")}
               className={`block w-full text-left px-4 py-3 rounded-lg font-medium transition-colors ${
-                activeTab === "customers" ? "bg-white/10 text-white" : "text-black hover:text-white hover:bg-white/10"
+                activeTab === "customers" ? "bg-white/10 text-white" : "text-white/70 hover:text-white hover:bg-white/10"
               }`}
             >
               Müşteriler
             </button>
             <Link
               to="/dashboard"
-              className="block px-4 py-3 rounded-lg text-black hover:text-white hover:bg-white/10 mt-2 transition-colors"
+              className="block px-4 py-3 rounded-lg text-white/70 hover:text-white hover:bg-white/10 mt-2 transition-colors"
             >
               Kullanıcı Dashboard
             </Link>
