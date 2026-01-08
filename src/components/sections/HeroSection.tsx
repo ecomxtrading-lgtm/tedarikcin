@@ -75,11 +75,20 @@ const HeroSection = () => {
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Button>
             </Link>
-            <a href="#how-it-works">
-              <Button variant="outline" size="xl" className="border-white/30 text-black hover:bg-white/10 hover:border-white/50 hover:text-white transition-colors">
-                Nasıl Çalışır?
-              </Button>
-            </a>
+            <Button 
+              variant="outline" 
+              size="xl" 
+              className="border-white/30 text-black hover:bg-white/10 hover:border-white/50 hover:text-white transition-colors"
+              onClick={(e) => {
+                e.preventDefault();
+                const element = document.getElementById('how-it-works');
+                if (element) {
+                  element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+              }}
+            >
+              Nasıl Çalışır?
+            </Button>
           </div>
         </div>
       </div>
