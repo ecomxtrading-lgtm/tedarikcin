@@ -5,7 +5,7 @@ const Footer = () => {
   const footerLinks = [
     { href: "#services", label: "Hizmetler" },
     { href: "#how-it-works", label: "Sistem" },
-    { href: "/login", label: "Teklif Al", isRoute: true },
+    { href: "/dashboard", label: "Teklif Al", isRoute: true },
     { href: "/login", label: "Giriş Yap", isRoute: true },
   ];
 

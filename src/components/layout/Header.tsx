@@ -1,13 +1,11 @@
 import { useState, useEffect } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Search, ChevronDown } from "lucide-react";
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const navigate = useNavigate();
-  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -27,23 +25,9 @@ const Header = () => {
 
   const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, anchorId: string) => {
     e.preventDefault();
-    
-    // Eğer ana sayfadaysak direkt scroll yap
-    if (location.pathname === '/' || location.pathname === '/tedarikcin' || location.pathname === '/tedarikcin/') {
-      const element = document.getElementById(anchorId);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    } else {
-      // Başka bir sayfadaysak önce ana sayfaya git, sonra scroll yap
-      navigate('/');
-      // Sayfa yüklendikten sonra scroll yap
-      setTimeout(() => {
-        const element = document.getElementById(anchorId);
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      }, 100);
+    const element = document.getElementById(anchorId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
     setIsMobileMenuOpen(false);
   };
@@ -123,7 +107,7 @@ const Header = () => {
             </div>
             
             {/* CTA Button */}
-            <Link to="/login">
+            <Link to="/dashboard">
               <Button variant="lime" size="lg" className="gap-2">
                 Ücretsiz Teklif Al
                 <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -167,7 +151,7 @@ const Header = () => {
                   {link.label}
                 </a>
               ))}
-              <Link to="/login" className="mt-4">
+              <Link to="/dashboard" className="mt-4">
                 <Button variant="lime" size="lg" className="w-full">
                   Ücretsiz Teklif Al
                 </Button>

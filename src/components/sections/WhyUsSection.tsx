@@ -130,7 +130,7 @@ const WhyUsSection = () => {
 
             {/* CTA Row */}
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 pt-4">
-              <Link to="/login">
+              <Link to="/dashboard">
                 <Button variant="lime" size="lg" className="group gap-2">
                   Teklif Al
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />

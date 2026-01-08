@@ -124,7 +124,7 @@ const HowItWorksSection = () => {
 
         {/* CTA */}
         <div className="text-center">
-          <Link to="/login">
+          <Link to="/dashboard">
             <Button variant="lime" size="xl" className="group gap-2">
               Hemen Teklif Al
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />

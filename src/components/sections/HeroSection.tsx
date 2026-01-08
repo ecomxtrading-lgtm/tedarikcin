@@ -1,30 +1,13 @@
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 
 const HeroSection = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
-
   const handleHowItWorksClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    
-    // Eğer ana sayfadaysak direkt scroll yap
-    if (location.pathname === '/' || location.pathname === '/tedarikcin' || location.pathname === '/tedarikcin/') {
-      const element = document.getElementById('how-it-works');
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    } else {
-      // Başka bir sayfadaysak önce ana sayfaya git, sonra scroll yap
-      navigate('/');
-      // Sayfa yüklendikten sonra scroll yap
-      setTimeout(() => {
-        const element = document.getElementById('how-it-works');
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      }, 100);
+    const element = document.getElementById('how-it-works');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
   return (
@@ -93,7 +76,7 @@ const HeroSection = () => {
 
           {/* CTA Buttons */}
           <div className="animate-fade-up opacity-0 stagger-3 flex flex-col sm:flex-row gap-4 pt-4">
-            <Link to="/login">
+            <Link to="/dashboard">
               <Button variant="lime" size="xl" className="group gap-2">
                 Ücretsiz Teklif Al
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />

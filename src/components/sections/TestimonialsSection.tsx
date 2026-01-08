@@ -94,7 +94,7 @@ const TestimonialsSection = () => {
 
         {/* CTA */}
         <div className="text-center">
-          <Link to="/login">
+          <Link to="/dashboard">
             <Button variant="cta" size="lg" className="group">
               Hemen Teklif Al
               <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform duration-300" />
