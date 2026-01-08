@@ -1,6 +1,6 @@
-import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Quote, Star, ArrowRight, MessageSquare } from "lucide-react";
+import { useAuthRedirect } from "@/hooks/useAuthRedirect";
 
 const testimonials = [
   {
@@ -30,6 +30,8 @@ const testimonials = [
 ];
 
 const TestimonialsSection = () => {
+  const { handleTeklifAlClick } = useAuthRedirect();
+
   return (
     <section id="testimonials" className="py-20 md:py-28 bg-brand-soft/30">
       <div className="container-main">
@@ -94,12 +96,15 @@ const TestimonialsSection = () => {
 
         {/* CTA */}
         <div className="text-center">
-          <Link to="/dashboard">
-            <Button variant="cta" size="lg" className="group">
-              Hemen Teklif Al
-              <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform duration-300" />
-            </Button>
-          </Link>
+          <Button 
+            variant="cta" 
+            size="lg" 
+            className="group"
+            onClick={handleTeklifAlClick}
+          >
+            Hemen Teklif Al
+            <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform duration-300" />
+          </Button>
         </div>
       </div>
     </section>

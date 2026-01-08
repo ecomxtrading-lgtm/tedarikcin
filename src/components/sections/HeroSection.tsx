@@ -1,10 +1,13 @@
-import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import { useAuthRedirect } from "@/hooks/useAuthRedirect";
 
 const HeroSection = () => {
+  const { handleTeklifAlClick } = useAuthRedirect();
+
   const handleHowItWorksClick = (e: React.MouseEvent) => {
     e.preventDefault();
+    e.stopPropagation();
     const element = document.getElementById('how-it-works');
     if (element) {
       element.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -76,12 +79,15 @@ const HeroSection = () => {
 
           {/* CTA Buttons */}
           <div className="animate-fade-up opacity-0 stagger-3 flex flex-col sm:flex-row gap-4 pt-4">
-            <Link to="/dashboard">
-              <Button variant="lime" size="xl" className="group gap-2">
-                Ücretsiz Teklif Al
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </Button>
-            </Link>
+            <Button 
+              variant="lime" 
+              size="xl" 
+              className="group gap-2"
+              onClick={handleTeklifAlClick}
+            >
+              Ücretsiz Teklif Al
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </Button>
             <Button 
               variant="outline" 
               size="xl" 

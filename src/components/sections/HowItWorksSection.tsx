@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { useAuthRedirect } from "@/hooks/useAuthRedirect";
 import { 
   UserPlus, 
   Upload, 
@@ -51,6 +51,8 @@ const steps = [
 ];
 
 const HowItWorksSection = () => {
+  const { handleTeklifAlClick } = useAuthRedirect();
+
   return (
     <section id="how-it-works" className="py-24 md:py-32 bg-secondary/50">
       <div className="container-main">
@@ -124,12 +126,15 @@ const HowItWorksSection = () => {
 
         {/* CTA */}
         <div className="text-center">
-          <Link to="/dashboard">
-            <Button variant="lime" size="xl" className="group gap-2">
-              Hemen Teklif Al
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
-            </Button>
-          </Link>
+          <Button 
+            variant="lime" 
+            size="xl" 
+            className="group gap-2"
+            onClick={handleTeklifAlClick}
+          >
+            Hemen Teklif Al
+            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
+          </Button>
         </div>
       </div>
     </section>

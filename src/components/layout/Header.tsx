@@ -2,10 +2,12 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Search, ChevronDown } from "lucide-react";
+import { useAuthRedirect } from "@/hooks/useAuthRedirect";
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const { handleTeklifAlClick } = useAuthRedirect();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -107,14 +109,17 @@ const Header = () => {
             </div>
             
             {/* CTA Button */}
-            <Link to="/dashboard">
-              <Button variant="lime" size="lg" className="gap-2">
-                Ücretsiz Teklif Al
-                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M7 17L17 7M17 7H7M17 7V17" />
-                </svg>
-              </Button>
-            </Link>
+            <Button 
+              variant="lime" 
+              size="lg" 
+              className="gap-2"
+              onClick={handleTeklifAlClick}
+            >
+              Ücretsiz Teklif Al
+              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M7 17L17 7M17 7H7M17 7V17" />
+              </svg>
+            </Button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -151,11 +156,14 @@ const Header = () => {
                   {link.label}
                 </a>
               ))}
-              <Link to="/dashboard" className="mt-4">
-                <Button variant="lime" size="lg" className="w-full">
-                  Ücretsiz Teklif Al
-                </Button>
-              </Link>
+              <Button 
+                variant="lime" 
+                size="lg" 
+                className="w-full mt-4"
+                onClick={handleTeklifAlClick}
+              >
+                Ücretsiz Teklif Al
+              </Button>
             </nav>
           </div>
         )}

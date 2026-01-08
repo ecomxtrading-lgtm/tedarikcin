@@ -1,11 +1,13 @@
 import { Link } from "react-router-dom";
 import { MessageCircle, Mail } from "lucide-react";
+import { useAuthRedirect } from "@/hooks/useAuthRedirect";
 
 const Footer = () => {
+  const { handleTeklifAlClick } = useAuthRedirect();
+
   const footerLinks = [
     { href: "#services", label: "Hizmetler" },
     { href: "#how-it-works", label: "Sistem" },
-    { href: "/dashboard", label: "Teklif Al", isRoute: true },
     { href: "/login", label: "Giriş Yap", isRoute: true },
   ];
 
@@ -52,6 +54,12 @@ const Footer = () => {
                   </a>
                 )
               )}
+              <button
+                onClick={handleTeklifAlClick}
+                className="text-left text-brand-secondary hover:text-brand-primary transition-colors duration-300"
+              >
+                Teklif Al
+              </button>
             </nav>
           </div>
 

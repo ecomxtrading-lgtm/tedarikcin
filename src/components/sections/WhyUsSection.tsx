@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { useAuthRedirect } from "@/hooks/useAuthRedirect";
 import { 
   Building2, 
   TrendingUp, 
@@ -21,6 +21,8 @@ const features = [
 ];
 
 const WhyUsSection = () => {
+  const { handleTeklifAlClick } = useAuthRedirect();
+
   return (
     <section id="why-us" className="py-24 md:py-32 bg-secondary/30">
       <div className="container-main">
@@ -130,12 +132,15 @@ const WhyUsSection = () => {
 
             {/* CTA Row */}
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 pt-4">
-              <Link to="/dashboard">
-                <Button variant="lime" size="lg" className="group gap-2">
-                  Teklif Al
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </Button>
-              </Link>
+              <Button 
+                variant="lime" 
+                size="lg" 
+                className="group gap-2"
+                onClick={handleTeklifAlClick}
+              >
+                Teklif Al
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </Button>
               
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-full bg-brand-lime flex items-center justify-center">
