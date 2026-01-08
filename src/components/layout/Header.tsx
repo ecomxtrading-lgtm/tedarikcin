@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Search, ChevronDown } from "lucide-react";
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -23,11 +25,34 @@ const Header = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, anchorId: string) => {
+    e.preventDefault();
+    
+    // Eğer ana sayfadaysak direkt scroll yap
+    if (location.pathname === '/' || location.pathname === '/tedarikcin' || location.pathname === '/tedarikcin/') {
+      const element = document.getElementById(anchorId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    } else {
+      // Başka bir sayfadaysak önce ana sayfaya git, sonra scroll yap
+      navigate('/');
+      // Sayfa yüklendikten sonra scroll yap
+      setTimeout(() => {
+        const element = document.getElementById(anchorId);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 100);
+    }
+    setIsMobileMenuOpen(false);
+  };
+
   const navLinks = [
-    { href: "#services", label: "Hizmetler" },
-    { href: "#how-it-works", label: "Nasıl Çalışır" },
-    { href: "#why-us", label: "Neden Biz" },
-    { href: "#testimonials", label: "Referanslar" },
+    { href: "#services", label: "Hizmetler", anchorId: "services" },
+    { href: "#how-it-works", label: "Nasıl Çalışır", anchorId: "how-it-works" },
+    { href: "#why-us", label: "Neden Biz", anchorId: "why-us" },
+    { href: "#testimonials", label: "Referanslar", anchorId: "testimonials" },
   ];
 
   return (
@@ -62,6 +87,7 @@ const Header = () => {
               <a
                 key={link.href}
                 href={link.href}
+                onClick={(e) => handleAnchorClick(e, link.anchorId)}
                 className={`transition-colors duration-300 font-medium text-sm flex items-center gap-1 ${
                   isScrolled 
                     ? "text-brand-dark/80 hover:text-brand-lime" 
@@ -131,12 +157,12 @@ const Header = () => {
                 <a
                   key={link.href}
                   href={link.href}
+                  onClick={(e) => handleAnchorClick(e, link.anchorId)}
                   className={`transition-all duration-300 font-medium py-3 px-4 rounded-lg ${
                     isScrolled 
                       ? "text-brand-dark/80 hover:text-brand-lime hover:bg-muted" 
                       : "text-white/80 hover:text-brand-lime hover:bg-white/5"
                   }`}
-                  onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {link.label}
                 </a>

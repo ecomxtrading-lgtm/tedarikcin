@@ -1,8 +1,32 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 
 const HeroSection = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleHowItWorksClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    
+    // Eğer ana sayfadaysak direkt scroll yap
+    if (location.pathname === '/' || location.pathname === '/tedarikcin' || location.pathname === '/tedarikcin/') {
+      const element = document.getElementById('how-it-works');
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    } else {
+      // Başka bir sayfadaysak önce ana sayfaya git, sonra scroll yap
+      navigate('/');
+      // Sayfa yüklendikten sonra scroll yap
+      setTimeout(() => {
+        const element = document.getElementById('how-it-works');
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 100);
+    }
+  };
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24">
       {/* Video Background */}
@@ -79,13 +103,7 @@ const HeroSection = () => {
               variant="outline" 
               size="xl" 
               className="border-white/30 text-black hover:bg-white/10 hover:border-white/50 hover:text-white transition-colors"
-              onClick={(e) => {
-                e.preventDefault();
-                const element = document.getElementById('how-it-works');
-                if (element) {
-                  element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-              }}
+              onClick={handleHowItWorksClick}
             >
               Nasıl Çalışır?
             </Button>
