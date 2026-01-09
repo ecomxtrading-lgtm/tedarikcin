@@ -36,13 +36,8 @@ export default defineConfig(({ mode }) => {
       },
       // Chunk size uyarıları için limit
       chunkSizeWarningLimit: 1000,
-      // Minification
-      minify: 'terser',
-      terserOptions: {
-        compress: {
-          drop_console: isProduction, // Production'da console.log'ları kaldır
-        },
-      },
+      // Minification (esbuild varsayılan olarak kullanılır, daha hızlı)
+      minify: 'esbuild',
       // CSS code splitting
       cssCodeSplit: true,
       // Source maps sadece development'ta
