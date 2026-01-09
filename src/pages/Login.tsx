@@ -58,6 +58,21 @@ const Login = () => {
     void bootstrap();
   }, [navigate]);
 
+  useEffect(() => {
+    const checkSessionAndRedirect = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+
+      // "Beni hatırla" aktifse direkt dashboard'a düşer
+      if (session?.user) {
+        const target = sessionStorage.getItem("postAuthRedirect") || "/dashboard";
+        sessionStorage.removeItem("postAuthRedirect");
+        navigate(target, { replace: true });
+      }
+    };
+
+    checkSessionAndRedirect();
+  }, [navigate]);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
