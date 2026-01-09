@@ -76,8 +76,8 @@ const Header = () => {
                 onClick={(e) => handleAnchorClick(e, link.anchorId)}
                 className={`transition-colors duration-300 font-medium text-sm flex items-center gap-1 ${
                   isScrolled 
-                    ? "text-brand-dark/80 hover:text-brand-lime" 
-                    : "text-white/80 hover:text-brand-lime"
+                    ? "text-brand-dark/90 hover:text-brand-lime" 
+                    : "text-white/95 hover:text-brand-lime"
                 }`}
               >
                 {link.label}
@@ -99,11 +99,14 @@ const Header = () => {
                     : "bg-white/10 border-white/10 text-white placeholder:text-white/50 focus:border-brand-lime/50"
                 }`}
               />
-              <button className={`absolute right-0 top-0 h-10 w-10 flex items-center justify-center rounded-r-lg transition-colors ${
-                isScrolled 
-                  ? "bg-brand-lime text-brand-dark hover:bg-brand-lime-hover" 
-                  : "bg-brand-lime text-brand-dark hover:bg-brand-lime-hover"
-              }`}>
+              <button 
+                className={`absolute right-0 top-0 h-10 w-10 flex items-center justify-center rounded-r-lg transition-colors ${
+                  isScrolled 
+                    ? "bg-brand-lime text-brand-dark hover:bg-brand-lime-hover" 
+                    : "bg-brand-lime text-brand-dark hover:bg-brand-lime-hover"
+                }`}
+                aria-label="Ara"
+              >
                 <Search className="w-4 h-4" />
               </button>
             </div>
@@ -149,8 +152,8 @@ const Header = () => {
                   onClick={(e) => handleAnchorClick(e, link.anchorId)}
                   className={`transition-all duration-300 font-medium py-3 px-4 rounded-lg ${
                     isScrolled 
-                      ? "text-brand-dark/80 hover:text-brand-lime hover:bg-muted" 
-                      : "text-white/80 hover:text-brand-lime hover:bg-white/5"
+                      ? "text-brand-dark/90 hover:text-brand-lime hover:bg-muted" 
+                      : "text-white/95 hover:text-brand-lime hover:bg-white/5"
                   }`}
                 >
                   {link.label}

@@ -39,7 +39,10 @@ const WhyUsSection = () => {
               
               {/* Video Play Button Overlay */}
               <div className="absolute bottom-4 left-4 flex items-center gap-3">
-                <button className="w-16 h-16 rounded-full bg-brand-lime flex items-center justify-center shadow-lg hover:bg-brand-lime-hover transition-colors group">
+                <button 
+                  className="w-16 h-16 rounded-full bg-brand-lime flex items-center justify-center shadow-lg hover:bg-brand-lime-hover transition-colors group"
+                  aria-label="Video izle"
+                >
                   <Play className="w-6 h-6 text-brand-dark ml-1" fill="currentColor" />
                 </button>
                 <div className="hidden sm:block">
@@ -112,7 +115,10 @@ const WhyUsSection = () => {
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 flex items-center justify-center bg-black/30">
-                  <button className="w-12 h-12 rounded-full bg-brand-lime flex items-center justify-center">
+                  <button 
+                    className="w-12 h-12 rounded-full bg-brand-lime flex items-center justify-center"
+                    aria-label="Kalite kontrol videosu izle"
+                  >
                     <Play className="w-5 h-5 text-brand-dark ml-0.5" fill="currentColor" />
                   </button>
                 </div>

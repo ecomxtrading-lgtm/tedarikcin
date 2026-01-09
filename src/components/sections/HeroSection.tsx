@@ -73,7 +73,7 @@ const HeroSection = () => {
           </h1>
 
           {/* Subtitle */}
-          <p className="animate-fade-up opacity-0 stagger-2 text-lg md:text-xl text-white/70 max-w-2xl leading-relaxed">
+          <p className="animate-fade-up opacity-0 stagger-2 text-lg md:text-xl text-white/90 max-w-2xl leading-relaxed">
             Dropshipping, Amazon FBA/FBM, toptan alım, kalite kontrol ve depolama. Ürünü söyleyin, gerisini bize bırakın.
           </p>
 
@@ -93,6 +93,7 @@ const HeroSection = () => {
               size="xl" 
               className="border-white/30 text-black hover:bg-white/10 hover:border-white/50 hover:text-white transition-colors"
               onClick={handleHowItWorksClick}
+              aria-label="Nasıl çalışır bölümüne git"
             >
               Nasıl Çalışır?
             </Button>
