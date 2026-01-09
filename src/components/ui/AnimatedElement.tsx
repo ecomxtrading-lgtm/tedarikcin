@@ -26,6 +26,20 @@ export const AnimatedElement = ({
     const element = elementRef.current;
     if (!element || hasAnimated) return;
 
+    // İlk render'da element zaten viewport'ta mı kontrol et
+    const rect = element.getBoundingClientRect();
+    const isInViewport = rect.top < window.innerHeight && rect.bottom > 0;
+
+    if (isInViewport) {
+      // Zaten viewport'ta ise hemen animasyonu başlat
+      setTimeout(() => {
+        setIsVisible(true);
+        setHasAnimated(true);
+      }, delay);
+      return;
+    }
+
+    // Viewport'ta değilse IntersectionObserver kullan
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
