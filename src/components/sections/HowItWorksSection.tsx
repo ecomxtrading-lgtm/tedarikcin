@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { useAuthRedirect } from "@/hooks/useAuthRedirect";
+import { AnimatedElement } from "@/components/ui/AnimatedElement";
 import { 
   UserPlus, 
   Upload, 
@@ -75,11 +76,12 @@ const HowItWorksSection = () => {
         {/* Steps Grid - 2x3 Layout matching reference image */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-16 mb-16">
           {steps.map((step, index) => (
-            <div
+            <AnimatedElement
               key={step.step}
-              className="group relative animate-fade-up opacity-0"
-              style={{ animationDelay: `${index * 0.1}s`, animationFillMode: 'forwards' }}
+              animation="fade-up"
+              delay={index * 50}
             >
+              <div className="group relative">
               <div className="flex gap-6">
                 {/* Left: Step Number Badge */}
                 <div className="flex-shrink-0">
@@ -120,7 +122,8 @@ const HowItWorksSection = () => {
                   </div>
                 </div>
               </div>
-            </div>
+              </div>
+            </AnimatedElement>
           ))}
         </div>
 

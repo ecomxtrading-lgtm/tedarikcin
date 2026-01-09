@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { AnimatedElement } from "@/components/ui/AnimatedElement";
 import { 
   Package, 
   Truck, 
@@ -92,11 +93,12 @@ const ServicesSection = () => {
         {/* Services Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {services.map((service, index) => (
-            <div
+            <AnimatedElement
               key={service.title}
-              className="group relative bg-card rounded-2xl p-6 shadow-card hover-lift border border-border/50 animate-fade-up opacity-0"
-              style={{ animationDelay: `${index * 0.08}s`, animationFillMode: 'forwards' }}
+              animation="fade-up"
+              delay={index * 50}
             >
+              <div className="group relative bg-card rounded-2xl p-6 shadow-card hover-lift border border-border/50">
               {/* Icon */}
               <div className="w-14 h-14 rounded-xl bg-brand-dark flex items-center justify-center mb-5 group-hover:bg-brand-lime transition-colors duration-300">
                 <service.icon className="w-7 h-7 text-white group-hover:text-brand-dark transition-colors duration-300" />
@@ -121,7 +123,8 @@ const ServicesSection = () => {
 
               {/* Hover border accent */}
               <div className="absolute inset-0 rounded-2xl border-2 border-brand-lime opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-            </div>
+              </div>
+            </AnimatedElement>
           ))}
         </div>
       </div>

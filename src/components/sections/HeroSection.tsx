@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { useAuthRedirect } from "@/hooks/useAuthRedirect";
+import { AnimatedElement } from "@/components/ui/AnimatedElement";
 
 const HeroSection = () => {
   const { handleTeklifAlClick } = useAuthRedirect();
@@ -21,6 +22,7 @@ const HeroSection = () => {
         loop
         muted
         playsInline
+        preload="metadata"
         className="absolute inset-0 w-full h-full object-cover"
         poster="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1920&q=80"
       >
@@ -51,7 +53,7 @@ const HeroSection = () => {
       <div className="relative z-10 container-main">
         <div className="max-w-4xl space-y-8">
           {/* Tag */}
-          <div className="animate-fade-up opacity-0">
+          <AnimatedElement animation="fade-up" delay={0}>
             <span className="inline-flex items-center gap-3 text-brand-lime font-medium">
               <span className="flex items-center gap-1">
                 <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
@@ -63,22 +65,27 @@ const HeroSection = () => {
               </span>
               Çin'deki Satın Alma ve Lojistik Ortağınız
             </span>
-          </div>
+          </AnimatedElement>
 
           {/* Main Heading */}
-          <h1 className="animate-fade-up opacity-0 stagger-1 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-bold text-white leading-[1.1]">
-            Dünya Standartlarında{" "}
-            <span className="text-highlight inline-block">Tedarik</span>{" "}
-            Çözümleri
-          </h1>
+          <AnimatedElement animation="fade-up" delay={100}>
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-bold text-white leading-[1.1]">
+              Dünya Standartlarında{" "}
+              <span className="text-highlight inline-block">Tedarik</span>{" "}
+              Çözümleri
+            </h1>
+          </AnimatedElement>
 
           {/* Subtitle */}
-          <p className="animate-fade-up opacity-0 stagger-2 text-lg md:text-xl text-white/90 max-w-2xl leading-relaxed">
-            Dropshipping, Amazon FBA/FBM, toptan alım, kalite kontrol ve depolama. Ürünü söyleyin, gerisini bize bırakın.
-          </p>
+          <AnimatedElement animation="fade-up" delay={200}>
+            <p className="text-lg md:text-xl text-white/90 max-w-2xl leading-relaxed">
+              Dropshipping, Amazon FBA/FBM, toptan alım, kalite kontrol ve depolama. Ürünü söyleyin, gerisini bize bırakın.
+            </p>
+          </AnimatedElement>
 
           {/* CTA Buttons */}
-          <div className="animate-fade-up opacity-0 stagger-3 flex flex-col sm:flex-row gap-4 pt-4">
+          <AnimatedElement animation="fade-up" delay={300}>
+            <div className="flex flex-col sm:flex-row gap-4 pt-4">
             <Button 
               variant="lime" 
               size="xl" 
@@ -97,7 +104,8 @@ const HeroSection = () => {
             >
               Nasıl Çalışır?
             </Button>
-          </div>
+            </div>
+          </AnimatedElement>
         </div>
       </div>
 

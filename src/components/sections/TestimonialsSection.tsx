@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Quote, Star, ArrowRight, MessageSquare } from "lucide-react";
 import { useAuthRedirect } from "@/hooks/useAuthRedirect";
+import { AnimatedElement } from "@/components/ui/AnimatedElement";
 
 const testimonials = [
   {
@@ -52,11 +53,12 @@ const TestimonialsSection = () => {
         {/* Testimonials Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
           {testimonials.map((testimonial, index) => (
-            <div
+            <AnimatedElement
               key={testimonial.name}
-              className="group relative bg-popover rounded-2xl p-8 shadow-card hover-lift border border-border/50 animate-fade-up opacity-0"
-              style={{ animationDelay: `${index * 0.15}s`, animationFillMode: 'forwards' }}
+              animation="fade-up"
+              delay={index * 100}
             >
+              <div className="group relative bg-popover rounded-2xl p-8 shadow-card hover-lift border border-border/50">
               {/* Quote Icon */}
               <div className="absolute top-6 right-6">
                 <Quote className="w-10 h-10 text-brand-cta/30" />
@@ -90,7 +92,8 @@ const TestimonialsSection = () => {
                   </p>
                 </div>
               </div>
-            </div>
+              </div>
+            </AnimatedElement>
           ))}
         </div>
 

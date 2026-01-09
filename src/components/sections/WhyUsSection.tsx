@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { useAuthRedirect } from "@/hooks/useAuthRedirect";
+import { AnimatedElement } from "@/components/ui/AnimatedElement";
 import { 
   Building2, 
   TrendingUp, 
@@ -28,13 +29,16 @@ const WhyUsSection = () => {
       <div className="container-main">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Left Side - Images */}
-          <div className="relative animate-fade-up opacity-0" style={{ animationFillMode: 'forwards' }}>
+          <AnimatedElement animation="fade-up" delay={0}>
             {/* Main Image */}
             <div className="relative z-10">
               <img
                 src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?auto=format&fit=crop&w=800&q=80"
                 alt="Profesyonel lojistik ekibi"
                 className="rounded-2xl shadow-hover w-full max-w-md"
+                loading="lazy"
+                width={800}
+                height={600}
               />
               
               {/* Video Play Button Overlay */}
@@ -59,6 +63,9 @@ const WhyUsSection = () => {
                 src="https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&w=400&q=80"
                 alt="Depo operasyonları"
                 className="rounded-2xl shadow-hover w-64"
+                loading="lazy"
+                width={400}
+                height={300}
               />
             </div>
 
@@ -72,10 +79,11 @@ const WhyUsSection = () => {
                 ))}
               </div>
             </div>
-          </div>
+          </AnimatedElement>
 
           {/* Right Side - Content */}
-          <div className="space-y-8 animate-slide-in-right opacity-0" style={{ animationDelay: '0.2s', animationFillMode: 'forwards' }}>
+          <AnimatedElement animation="slide-in-right" delay={200}>
+            <div className="space-y-8">
             {/* Tag */}
             <span className="inline-flex items-center gap-2 text-brand-lime font-semibold">
               <span className="flex gap-1">
@@ -113,6 +121,9 @@ const WhyUsSection = () => {
                   src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=400&q=80"
                   alt="Kalite kontrol"
                   className="w-full h-full object-cover"
+                  loading="lazy"
+                  width={400}
+                  height={200}
                 />
                 <div className="absolute inset-0 flex items-center justify-center bg-black/30">
                   <button 
@@ -158,7 +169,8 @@ const WhyUsSection = () => {
                 </div>
               </div>
             </div>
-          </div>
+            </div>
+          </AnimatedElement>
         </div>
       </div>
 
