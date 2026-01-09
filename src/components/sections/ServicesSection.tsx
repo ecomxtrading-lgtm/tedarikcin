@@ -98,7 +98,7 @@ const ServicesSection = () => {
               animation="fade-up"
               delay={index * 50}
             >
-              <div className="group relative bg-card rounded-2xl p-6 shadow-card hover-lift border border-border/50">
+              <div className="group relative bg-card rounded-2xl p-6 shadow-card hover-lift border border-border/50 h-full flex flex-col">
               {/* Icon */}
               <div className="w-14 h-14 rounded-xl bg-brand-dark flex items-center justify-center mb-5 group-hover:bg-brand-lime transition-colors duration-300">
                 <service.icon className="w-7 h-7 text-white group-hover:text-brand-dark transition-colors duration-300" />
@@ -108,14 +108,14 @@ const ServicesSection = () => {
               <h3 className="text-lg font-heading font-semibold text-foreground mb-3 group-hover:text-brand-dark transition-colors duration-300">
                 {service.title}
               </h3>
-              <p className="text-muted-foreground text-sm leading-relaxed mb-5">
+              <p className="text-muted-foreground text-sm leading-relaxed mb-5 flex-1">
                 {service.description}
               </p>
 
               {/* Mini CTA */}
               <Link 
                 to="/login" 
-                className="inline-flex items-center text-brand-dark text-sm font-semibold hover:text-brand-lime transition-colors duration-300 group/link"
+                className="inline-flex items-center text-brand-dark text-sm font-semibold hover:text-brand-lime transition-colors duration-300 group/link mt-auto"
               >
                 Detaylı Bilgi
                 <ArrowRight className="ml-2 w-4 h-4 group-hover/link:translate-x-1 transition-transform duration-300" />
