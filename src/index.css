@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap');
-/* Font-display: swap for better performance */
+/* Google Fonts artık index.html'de link tag ile yükleniyor (render-blocking önleme) */
 
 @tailwind base;
 @tailwind components;

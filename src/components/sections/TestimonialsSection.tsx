@@ -92,7 +92,7 @@ const TestimonialsSection = () => {
                   </p>
                 </div>
               </div>
-              </div>
+            </div>
             </AnimatedElement>
           ))}
         </div>
@@ -105,9 +105,9 @@ const TestimonialsSection = () => {
             className="group"
             onClick={handleTeklifAlClick}
           >
-            Hemen Teklif Al
-            <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform duration-300" />
-          </Button>
+              Hemen Teklif Al
+              <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform duration-300" />
+            </Button>
         </div>
       </div>
     </section>

@@ -39,6 +39,7 @@ const WhyUsSection = () => {
                 loading="lazy"
                 width={800}
                 height={600}
+                fetchPriority="low"
               />
               
               {/* Video Play Button Overlay */}
@@ -66,6 +67,7 @@ const WhyUsSection = () => {
                 loading="lazy"
                 width={400}
                 height={300}
+                fetchPriority="low"
               />
             </div>
 
@@ -124,6 +126,7 @@ const WhyUsSection = () => {
                   loading="lazy"
                   width={400}
                   height={200}
+                  fetchPriority="low"
                 />
                 <div className="absolute inset-0 flex items-center justify-center bg-black/30">
                   <button 
@@ -155,9 +158,9 @@ const WhyUsSection = () => {
                 className="group gap-2"
                 onClick={handleTeklifAlClick}
               >
-                Teklif Al
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </Button>
+                  Teklif Al
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </Button>
               
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-full bg-brand-lime flex items-center justify-center">
@@ -169,7 +172,7 @@ const WhyUsSection = () => {
                 </div>
               </div>
             </div>
-            </div>
+          </div>
           </AnimatedElement>
         </div>
       </div>

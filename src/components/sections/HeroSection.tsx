@@ -22,9 +22,10 @@ const HeroSection = () => {
         loop
         muted
         playsInline
-        preload="metadata"
+        preload="none"
         className="absolute inset-0 w-full h-full object-cover"
-        poster="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1920&q=80"
+        poster="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=75"
+        fetchPriority="high"
       >
         <source
           src="https://cdn.coverr.co/videos/coverr-shipping-containers-at-a-port-2367/1080p.mp4"
@@ -70,17 +71,17 @@ const HeroSection = () => {
           {/* Main Heading */}
           <AnimatedElement animation="fade-up" delay={100}>
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-bold text-white leading-[1.1]">
-              Dünya Standartlarında{" "}
-              <span className="text-highlight inline-block">Tedarik</span>{" "}
-              Çözümleri
-            </h1>
+            Dünya Standartlarında{" "}
+            <span className="text-highlight inline-block">Tedarik</span>{" "}
+            Çözümleri
+          </h1>
           </AnimatedElement>
 
           {/* Subtitle */}
           <AnimatedElement animation="fade-up" delay={200}>
             <p className="text-lg md:text-xl text-white/90 max-w-2xl leading-relaxed">
-              Dropshipping, Amazon FBA/FBM, toptan alım, kalite kontrol ve depolama. Ürünü söyleyin, gerisini bize bırakın.
-            </p>
+            Dropshipping, Amazon FBA/FBM, toptan alım, kalite kontrol ve depolama. Ürünü söyleyin, gerisini bize bırakın.
+          </p>
           </AnimatedElement>
 
           {/* CTA Buttons */}
@@ -92,9 +93,9 @@ const HeroSection = () => {
               className="group gap-2"
               onClick={handleTeklifAlClick}
             >
-              Ücretsiz Teklif Al
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </Button>
+                Ücretsiz Teklif Al
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </Button>
             <Button 
               variant="outline" 
               size="xl" 
@@ -102,9 +103,9 @@ const HeroSection = () => {
               onClick={handleHowItWorksClick}
               aria-label="Nasıl çalışır bölümüne git"
             >
-              Nasıl Çalışır?
-            </Button>
-            </div>
+                Nasıl Çalışır?
+              </Button>
+          </div>
           </AnimatedElement>
         </div>
       </div>

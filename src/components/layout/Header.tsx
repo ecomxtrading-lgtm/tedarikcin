@@ -101,9 +101,9 @@ const Header = () => {
               />
               <button 
                 className={`absolute right-0 top-0 h-10 w-10 flex items-center justify-center rounded-r-lg transition-colors ${
-                  isScrolled 
-                    ? "bg-brand-lime text-brand-dark hover:bg-brand-lime-hover" 
-                    : "bg-brand-lime text-brand-dark hover:bg-brand-lime-hover"
+                isScrolled 
+                  ? "bg-brand-lime text-brand-dark hover:bg-brand-lime-hover" 
+                  : "bg-brand-lime text-brand-dark hover:bg-brand-lime-hover"
                 }`}
                 aria-label="Ara"
               >
@@ -118,11 +118,11 @@ const Header = () => {
               className="gap-2"
               onClick={handleTeklifAlClick}
             >
-              Ücretsiz Teklif Al
-              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M7 17L17 7M17 7H7M17 7V17" />
-              </svg>
-            </Button>
+                Ücretsiz Teklif Al
+                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M7 17L17 7M17 7H7M17 7V17" />
+                </svg>
+              </Button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -165,8 +165,8 @@ const Header = () => {
                 className="w-full mt-4"
                 onClick={handleTeklifAlClick}
               >
-                Ücretsiz Teklif Al
-              </Button>
+                  Ücretsiz Teklif Al
+                </Button>
             </nav>
           </div>
         )}
