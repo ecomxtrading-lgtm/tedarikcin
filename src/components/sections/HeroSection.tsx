@@ -25,7 +25,6 @@ const HeroSection = () => {
         preload="none"
         className="absolute inset-0 w-full h-full object-cover"
         poster="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=75"
-        fetchPriority="high"
       >
         <source
           src="https://cdn.coverr.co/videos/coverr-shipping-containers-at-a-port-2367/1080p.mp4"
