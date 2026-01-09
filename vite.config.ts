@@ -25,12 +25,31 @@ export default defineConfig(({ mode }) => {
       // Code splitting ve tree shaking için optimizasyonlar
       rollupOptions: {
         output: {
-          manualChunks: {
+          manualChunks: (id) => {
             // Vendor chunk'ları ayır
-            'react-vendor': ['react', 'react-dom', 'react-router-dom'],
-            'ui-vendor': ['@radix-ui/react-slot', '@radix-ui/react-dialog', '@radix-ui/react-dropdown-menu'],
-            'supabase': ['@supabase/supabase-js'],
-            'query': ['@tanstack/react-query'],
+            if (id.includes('node_modules')) {
+              // React core
+              if (id.includes('react') || id.includes('react-dom') || id.includes('react-router')) {
+                return 'react-vendor';
+              }
+              // Supabase - ayrı chunk (lazy load için)
+              if (id.includes('@supabase')) {
+                return 'supabase';
+              }
+              // React Query
+              if (id.includes('@tanstack/react-query')) {
+                return 'query';
+              }
+              // Radix UI - daha küçük chunk'lara ayır
+              if (id.includes('@radix-ui')) {
+                // Sadece kullanılan component'leri yükle
+                const usedComponents = ['slot', 'dialog', 'dropdown-menu', 'toast', 'tooltip', 'label', 'select'];
+                const componentName = usedComponents.find(comp => id.includes(comp));
+                return componentName ? `ui-${componentName}` : 'ui-vendor';
+              }
+              // Diğer vendor'lar
+              return 'vendor';
+            }
           },
         },
       },
@@ -40,6 +59,8 @@ export default defineConfig(({ mode }) => {
       minify: 'esbuild',
       // CSS code splitting
       cssCodeSplit: true,
+      // CSS minification
+      cssMinify: true,
       // Source maps sadece development'ta
       sourcemap: !isProduction,
     },

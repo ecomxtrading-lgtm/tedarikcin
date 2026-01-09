@@ -1,5 +1,6 @@
 import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
+// CSS'i async yükle (render-blocking önleme)
 import "./index.css";
 
 const rootElement = document.getElementById("root");
