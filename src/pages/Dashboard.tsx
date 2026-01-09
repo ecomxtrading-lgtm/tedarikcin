@@ -527,17 +527,17 @@ const Dashboard = () => {
         const pickUpFee = firstProduct?.["pick-up_fee"] || null;
 
         return {
-          id: offer.id,
+        id: offer.id,
           status: offer.status || "draft",
-          createdAt: offer.created_at ? new Date(offer.created_at) : new Date(),
+        createdAt: offer.created_at ? new Date(offer.created_at) : new Date(),
           pickUpFee: pickUpFee,
-          products:
-            offer.products?.map((p: any) => ({
+        products:
+          offer.products?.map((p: any) => ({
               id: p.id,
               name: p.name || "",
               explanation: p.explanation || "",
               count: p.count || 0,
-              serviceType: p.service_type || "",
+            serviceType: p.service_type || "",
               productWidth: p.product_width,
               productLength: p.product_length,
               productHeight: p.product_height,
@@ -552,10 +552,10 @@ const Dashboard = () => {
               unitPrice: p.unit_price,
               currency: p.currency,
               pickUpFee: p["pick-up_fee"] || null,
-              imageUrls: (p.product_images || [])
-                .sort((a: any, b: any) => (a.sort_order || 0) - (b.sort_order || 0))
-                .map((img: any) => img.url),
-            })) || [],
+            imageUrls: (p.product_images || [])
+              .sort((a: any, b: any) => (a.sort_order || 0) - (b.sort_order || 0))
+              .map((img: any) => img.url),
+          })) || [],
         };
       }) || [];
 
@@ -1018,15 +1018,15 @@ const Dashboard = () => {
               }}
             >
               <DropdownMenuTrigger asChild>
-                <button className="relative p-2 text-muted-foreground hover:text-foreground transition-colors">
-                  <Bell className="w-5 h-5" />
+            <button className="relative p-2 text-muted-foreground hover:text-foreground transition-colors">
+              <Bell className="w-5 h-5" />
                   {unreadCount > 0 && (
                     <span 
                       className="absolute top-1 right-1 w-2 h-2 rounded-full ring-2 ring-background" 
                       style={{ backgroundColor: '#C6DF20' }}
                     />
                   )}
-                </button>
+            </button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-80 md:w-96">
                 <div className="p-2 border-b border-border">

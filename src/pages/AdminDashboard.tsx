@@ -520,9 +520,9 @@ const AdminDashboard = () => {
           resolvedUrls.push(url);
         } else {
           try {
-              const { data: signed, error: signedError } = await supabase.storage
+            const { data: signed, error: signedError } = await supabase.storage
                 .from("files")
-                .createSignedUrl(url, 60 * 60 * 24 * 7);
+              .createSignedUrl(url, 60 * 60 * 24 * 7);
             if (!signedError && signed?.signedUrl) resolvedUrls.push(signed.signedUrl);
           } catch (err) {
             // Signed URL alınamadı, devam et
@@ -558,7 +558,7 @@ const AdminDashboard = () => {
     for (const p of newProducts) {
       if (!p.name || p.name.trim() === "") {
         toast.error("Lütfen tüm yeni ürünler için ürün adı girin.");
-        return;
+      return;
       }
     }
 
@@ -647,14 +647,14 @@ const AdminDashboard = () => {
           }
         } else {
           // MEVCUT ÜRÜN: Sadece offer_id'yi güncelle
-          const updateBody: any = {
-            offer_id: offerData.id,
+        const updateBody: any = {
+          offer_id: offerData.id,
             count: p.count || 250,
             product_width: p.product_width ? parseFloat(String(p.product_width)) : null,
             product_length: p.product_length ? parseFloat(String(p.product_length)) : null,
             product_height: p.product_height ? parseFloat(String(p.product_height)) : null,
             product_weight: p.product_weight ? parseFloat(String(p.product_weight)) : null,
-            product_package: p.product_package || null,
+          product_package: p.product_package || null,
             box_width: p.box_width ? parseFloat(String(p.box_width)) : null,
             box_length: p.box_length ? parseFloat(String(p.box_length)) : null,
             box_height: p.box_height ? parseFloat(String(p.box_height)) : null,
@@ -662,16 +662,16 @@ const AdminDashboard = () => {
             box_volumetric_weight: p.box_volumetric_weight ? parseFloat(String(p.box_volumetric_weight)) : null,
             box_units: p.box_units ? Number(p.box_units) : null,
             box_count: p.box_count ? Number(p.box_count) : null,
-            extra_notes: p.extra_notes || null,
+          extra_notes: p.extra_notes || null,
             unit_price: p.unit_price ? parseFloat(String(p.unit_price)) : null,
-          };
+        };
 
           const { error: prodErr } = await supabase
             .from("products")
             .update(updateBody)
             .eq("id", p.productId);
           
-          if (prodErr) throw prodErr;
+        if (prodErr) throw prodErr;
         }
       }
 
@@ -870,7 +870,7 @@ const AdminDashboard = () => {
                 </div>
                 <div className="flex items-center gap-4">
                   {/* Status Filtre Dropdown */}
-                  <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2">
                     <Label htmlFor="status-filter" className="text-sm text-muted-foreground whitespace-nowrap">
                       Status:
                     </Label>
@@ -891,8 +891,8 @@ const AdminDashboard = () => {
                   {/* Eski sidebar filtre gösterimi */}
                   <div className="flex items-center gap-2">
                     <div className="text-sm text-muted-foreground">Kategori: </div>
-                    <div className="text-sm">
-                      <span className="font-semibold">{offerFilter === "all" ? "Gelen" : offerFilter === "bekleyen" ? "Bekleyen" : offerFilter === "gonderilen" ? "Gönderilen" : "Tamamlanan"}</span>
+                  <div className="text-sm">
+                    <span className="font-semibold">{offerFilter === "all" ? "Gelen" : offerFilter === "bekleyen" ? "Bekleyen" : offerFilter === "gonderilen" ? "Gönderilen" : "Tamamlanan"}</span>
                     </div>
                   </div>
                 </div>
@@ -1309,24 +1309,24 @@ const AdminDashboard = () => {
                                 }
                               }}
                             >
-                              <SelectTrigger>
+                          <SelectTrigger>
                                 <SelectValue placeholder="Ürün seçin veya yeni oluşturun" />
-                              </SelectTrigger>
-                              <SelectContent>
+                          </SelectTrigger>
+                          <SelectContent>
                                 <SelectItem value="new">+ Yeni Ürün Oluştur</SelectItem>
-                                {((customerProductsCache[createOfferCustomer?.userId || ""] || []) as any[]).length === 0 ? (
+                            {((customerProductsCache[createOfferCustomer?.userId || ""] || []) as any[]).length === 0 ? (
                                   <SelectItem value="__none" disabled>Mevcut ürün bulunamadı</SelectItem>
-                                ) : (
-                                  (customerProductsCache[createOfferCustomer?.userId || ""] || []).map((prod: any) => (
+                            ) : (
+                              (customerProductsCache[createOfferCustomer?.userId || ""] || []).map((prod: any) => (
                                     <SelectItem key={prod.id} value={prod.id}>
                                       {prod.name}
                                     </SelectItem>
-                                  ))
-                                )}
-                              </SelectContent>
-                            </Select>
+                              ))
+                            )}
+                          </SelectContent>
+                        </Select>
                           </div>
-                        </div>
+                      </div>
 
                         {/* Yeni Ürün Bilgileri (Eğer mevcut ürün seçilmediyse) */}
                         {(!p.productId || p.isNewProduct) && (
@@ -1348,7 +1348,7 @@ const AdminDashboard = () => {
                                   placeholder="Ürün açıklaması"
                                 />
                               </div>
-                            </div>
+                      </div>
 
                             {/* Görsel Yükleme */}
                             <div className="space-y-2">
@@ -1376,15 +1376,15 @@ const AdminDashboard = () => {
                                       }}
                                     >
                                       <X className="w-3 h-3" />
-                                    </Button>
-                                  </div>
+                        </Button>
+                      </div>
                                 ))}
                                 {/* Dosya yükleme butonu */}
                                 {(productImageUrls[idx] || []).length < 5 && (
                                   <label className="cursor-pointer">
                                     <div className="w-20 h-20 rounded-lg border-2 border-dashed border-border flex items-center justify-center hover:border-brand-lime transition-colors bg-muted/50">
                                       <Upload className="w-6 h-6 text-muted-foreground" />
-                                    </div>
+                    </div>
                                     <input
                                       type="file"
                                       ref={(el) => {
@@ -1411,7 +1411,7 @@ const AdminDashboard = () => {
                                     />
                                   </label>
                                 )}
-                              </div>
+                        </div>
                             </div>
                           </div>
                         )}
@@ -1442,22 +1442,22 @@ const AdminDashboard = () => {
                                       </div>
                                     ))
                                   : ((p.product_images || []) as any[]).slice(0, 4).map((img: any, i: number) => {
-                                      const url = img?.url || img;
-                                      return (
+                              const url = img?.url || img;
+                              return (
                                         <div key={i} className="aspect-square rounded-md border border-border overflow-hidden bg-muted">
-                                          <img
-                                            src={url}
+                                  <img
+                                    src={url}
                                             alt={`${p.name} ${i + 1}`}
                                             className="w-full h-full object-cover"
-                                            onError={(e) => {
-                                              (e.target as HTMLImageElement).src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Crect fill='%23f0f0f0' width='100' height='100'/%3E%3Ctext x='50' y='50' text-anchor='middle' dy='.35em' fill='%23999' font-size='12'%3EGörsel Yok%3C/text%3E%3C/svg%3E";
-                                            }}
-                                          />
-                                        </div>
-                                      );
+                                    onError={(e) => {
+                                      (e.target as HTMLImageElement).src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Crect fill='%23f0f0f0' width='100' height='100'/%3E%3Ctext x='50' y='50' text-anchor='middle' dy='.35em' fill='%23999' font-size='12'%3EGörsel Yok%3C/text%3E%3C/svg%3E";
+                                    }}
+                                  />
+                                </div>
+                              );
                                     })
                                 }
-                              </div>
+                          </div>
                             )}
                           </div>
                         )}
@@ -1499,7 +1499,7 @@ const AdminDashboard = () => {
                               placeholder="0"
                             />
                           </div>
-                        </div>
+                          </div>
 
                         {/* Satır 2: Ürün Ağırlık, Paket, Adedi */}
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -1596,8 +1596,8 @@ const AdminDashboard = () => {
                               onChange={(e) => updateNewOfferProductField(idx, "box_units", Number(e.target.value) || null)}
                               placeholder="0"
                             />
-                          </div>
                         </div>
+                      </div>
 
                         {/* Satır 5: Kutu Sayısı, Ürün Fiyatı */}
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -1609,7 +1609,7 @@ const AdminDashboard = () => {
                               onChange={(e) => updateNewOfferProductField(idx, "box_count", Number(e.target.value) || null)}
                               placeholder="0"
                             />
-                          </div>
+                  </div>
                           <div className="space-y-2">
                             <Label>Ürün Fiyatı</Label>
                             <Input
@@ -1633,8 +1633,8 @@ const AdminDashboard = () => {
                             rows={3}
                             className="resize-y"
                           />
-                        </div>
-                      </div>
+                </div>
+              </div>
                     </CardContent>
                   </Card>
                 ))}
@@ -1649,7 +1649,7 @@ const AdminDashboard = () => {
                     <Plus className="w-4 h-4" />
                     Ürün Ekle
                   </Button>
-                </div>
+              </div>
               </div>
             </ScrollArea>
 
