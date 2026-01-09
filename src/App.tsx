@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -23,8 +23,12 @@ const queryClient = new QueryClient();
 const SPAHandler = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const hasProcessed = useRef(false);
 
   useEffect(() => {
+    // Sadece bir kez çalışsın (çakışma önleme)
+    if (hasProcessed.current) return;
+    
     // URL'de ?/ formatı varsa (GitHub Pages SPA routing)
     // Örnek: /?/dashboard#access_token=... veya /?/admin
     const search = window.location.search;
@@ -32,6 +36,8 @@ const SPAHandler = () => {
     
     // Eğer pathname base path ise ve search ?/ ile başlıyorsa
     if (search.startsWith("?/")) {
+      hasProcessed.current = true;
+      
       // ?/admin formatından admin kısmını al
       let spaPath = search.substring(2); // "?/" kısmını atla
       
@@ -53,7 +59,9 @@ const SPAHandler = () => {
       const hash = window.location.hash;
       
       // Navigate et (replace: true ile URL'i temizle)
-      navigate(spaPath + hash, { replace: true });
+      setTimeout(() => {
+        navigate(spaPath + hash, { replace: true });
+      }, 0);
       return;
     }
     
@@ -64,8 +72,11 @@ const SPAHandler = () => {
     
     if (pathname === normalizedBase || pathname === normalizedBase + "/") {
       // Eğer React Router'ın location'ı farklıysa, onu kullan
-      if (location.pathname !== pathname) {
-        navigate(location.pathname + location.search + location.hash, { replace: true });
+      if (location.pathname !== pathname && !hasProcessed.current) {
+        hasProcessed.current = true;
+        setTimeout(() => {
+          navigate(location.pathname + location.search + location.hash, { replace: true });
+        }, 0);
       }
     }
   }, [location, navigate]);

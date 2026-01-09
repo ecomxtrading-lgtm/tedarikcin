@@ -84,17 +84,16 @@ const HeroSection = () => {
           </AnimatedElement>
 
           {/* CTA Buttons */}
-          <AnimatedElement animation="fade-up" delay={300}>
-            <div className="flex flex-col sm:flex-row gap-4 pt-4">
+          <div className="flex flex-col sm:flex-row gap-4 pt-4 animate-fade-up">
             <Button 
               variant="lime" 
               size="xl" 
               className="group gap-2"
               onClick={handleTeklifAlClick}
             >
-                Ücretsiz Teklif Al
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </Button>
+              Ücretsiz Teklif Al
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </Button>
             <Button 
               variant="outline" 
               size="xl" 
@@ -102,10 +101,9 @@ const HeroSection = () => {
               onClick={handleHowItWorksClick}
               aria-label="Nasıl çalışır bölümüne git"
             >
-                Nasıl Çalışır?
-              </Button>
+              Nasıl Çalışır?
+            </Button>
           </div>
-          </AnimatedElement>
         </div>
       </div>
 
