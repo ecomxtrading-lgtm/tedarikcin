@@ -507,6 +507,7 @@ const Dashboard = () => {
           unit_price,
           currency,
           "pick-up_fee",
+          extra_notes,
           product_images (url, sort_order)
         )
       `
@@ -552,6 +553,7 @@ const Dashboard = () => {
               unitPrice: p.unit_price,
               currency: p.currency,
               pickUpFee: p["pick-up_fee"] || null,
+              extraNotes: p.extra_notes || null,
             imageUrls: (p.product_images || [])
               .sort((a: any, b: any) => (a.sort_order || 0) - (b.sort_order || 0))
               .map((img: any) => img.url),

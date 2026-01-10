@@ -22,6 +22,7 @@ export interface ProductDetail {
   unitPrice?: number | null;
   currency?: string | null;
   pickUpFee?: number | null;
+  extraNotes?: string | null;
   imageUrls: string[];
 }
 

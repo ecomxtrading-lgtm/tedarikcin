@@ -69,6 +69,14 @@ const OfferViewModal = ({ isOpen, onClose, offer }: OfferViewModalProps) => {
                       {product.explanation}
                     </p>
                   )}
+                  {product.extraNotes && (
+                    <div className="mt-2 pt-2 border-t border-border/50">
+                      <p className="text-xs font-semibold text-foreground mb-1">Ek Notlar:</p>
+                      <p className="text-sm text-muted-foreground leading-relaxed whitespace-pre-wrap">
+                        {product.extraNotes}
+                      </p>
+                    </div>
+                  )}
                 </div>
 
                 {/* Ürün Görselleri */}
