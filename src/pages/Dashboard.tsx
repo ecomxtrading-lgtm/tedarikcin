@@ -32,7 +32,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
-type MenuSection = "dashboard" | "products" | "offers" | "pending-offers" | "ready-offers" | "settings";
+type MenuSection = "dashboard" | "offers" | "pending-offers" | "ready-offers" | "accepted-offers" | "rejected-offers" | "settings";
 
 interface Notification {
   id: string;
@@ -654,7 +654,6 @@ const Dashboard = () => {
 
   const menuItems = [
     { id: "dashboard" as MenuSection, icon: LayoutDashboard, label: "Dashboard" },
-    { id: "products" as MenuSection, icon: Package, label: "Ürünlerim" },
     {
       id: "offers" as MenuSection,
       icon: FileText,
@@ -662,7 +661,9 @@ const Dashboard = () => {
       hasSubmenu: true,
       submenu: [
         { id: "pending-offers" as MenuSection, icon: Clock, label: "Bekleyen Teklifler" },
-        { id: "ready-offers" as MenuSection, icon: FileText, label: "Hazır Teklifler" },
+        { id: "ready-offers" as MenuSection, icon: CheckCircle2, label: "Hazır Teklifler" },
+        { id: "accepted-offers" as MenuSection, icon: Package, label: "İletime Alınan" },
+        { id: "rejected-offers" as MenuSection, icon: X, label: "Reddedilen Teklifler" },
       ],
     },
     { id: "settings" as MenuSection, icon: Settings, label: "Ayarlar" },
@@ -681,7 +682,7 @@ const Dashboard = () => {
               }
             }}
             className={`w-full flex items-center justify-between gap-3 px-4 py-3 rounded-xl transition-all duration-300 ${
-              activeSection === item.id || (item.hasSubmenu && (activeSection === "pending-offers" || activeSection === "ready-offers"))
+              activeSection === item.id || (item.hasSubmenu && (activeSection === "pending-offers" || activeSection === "ready-offers" || activeSection === "accepted-offers" || activeSection === "rejected-offers"))
                 ? "text-brand-lime"
                 : "text-white hover:text-brand-lime"
             }`}
@@ -701,30 +702,43 @@ const Dashboard = () => {
           {/* Submenu */}
           {item.hasSubmenu && isOffersExpanded && item.submenu && (
             <div className="ml-4 mt-1 space-y-1">
-              {item.submenu.map((subItem) => (
-                <button
-                  key={subItem.id}
-                  onClick={() => handleSectionChange(subItem.id)}
-                  className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-xl transition-all duration-300 ${
-                    activeSection === subItem.id
-                      ? "text-brand-lime bg-brand-lime/10"
-                      : "text-white hover:text-brand-lime"
-                  }`}
-                >
-                  <subItem.icon className="w-4 h-4" />
-                  <span className="font-medium text-sm">{subItem.label}</span>
-                  {subItem.id === "pending-offers" && pendingOffers.filter((o) => o.status?.toLowerCase() !== "hazır").length > 0 && (
-                    <span className="ml-auto bg-brand-lime text-brand-dark text-xs px-2 py-0.5 rounded-full">
-                      {pendingOffers.filter((o) => o.status?.toLowerCase() !== "hazır").length}
-                    </span>
-                  )}
-                  {subItem.id === "ready-offers" && pendingOffers.filter((o) => o.status?.toLowerCase() === "hazır").length > 0 && (
-                    <span className="ml-auto bg-brand-lime text-brand-dark text-xs px-2 py-0.5 rounded-full">
-                      {pendingOffers.filter((o) => o.status?.toLowerCase() === "hazır").length}
-                    </span>
-                  )}
-                </button>
-              ))}
+              {item.submenu.map((subItem) => {
+                let count = 0;
+                const normalizedStatus = (status: string) => status?.toLowerCase().trim();
+                
+                if (subItem.id === "pending-offers") {
+                  count = pendingOffers.filter((o) => {
+                    const status = normalizedStatus(o.status);
+                    return status !== "hazır" && status !== "iletim alındı" && status !== "reddedildi";
+                  }).length;
+                } else if (subItem.id === "ready-offers") {
+                  count = pendingOffers.filter((o) => normalizedStatus(o.status) === "hazır").length;
+                } else if (subItem.id === "accepted-offers") {
+                  count = pendingOffers.filter((o) => normalizedStatus(o.status) === "iletim alındı").length;
+                } else if (subItem.id === "rejected-offers") {
+                  count = pendingOffers.filter((o) => normalizedStatus(o.status) === "reddedildi").length;
+                }
+                
+                return (
+                  <button
+                    key={subItem.id}
+                    onClick={() => handleSectionChange(subItem.id)}
+                    className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-xl transition-all duration-300 whitespace-nowrap ${
+                      activeSection === subItem.id
+                        ? "text-brand-lime bg-brand-lime/10"
+                        : "text-white hover:text-brand-lime"
+                    }`}
+                  >
+                    <subItem.icon className="w-4 h-4 flex-shrink-0" />
+                    <span className="font-medium text-sm truncate">{subItem.label}</span>
+                    {count > 0 && (
+                      <span className="ml-auto bg-brand-lime text-brand-dark text-xs px-2 py-0.5 rounded-full flex-shrink-0">
+                        {count}
+                      </span>
+                    )}
+                  </button>
+                );
+              })}
             </div>
           )}
         </div>
@@ -755,7 +769,10 @@ const Dashboard = () => {
               </Button>
             </div>
             <PendingOffers 
-              offers={pendingOffers.filter((o) => o.status?.toLowerCase() !== "hazır")} 
+              offers={pendingOffers.filter((o) => {
+                const status = o.status?.toLowerCase().trim();
+                return status !== "hazır" && status !== "iletim alındı" && status !== "reddedildi";
+              })} 
               onViewProducts={handleViewProducts} 
             />
           </>
@@ -775,7 +792,47 @@ const Dashboard = () => {
               </div>
             </div>
             <PendingOffers 
-              offers={pendingOffers.filter((o) => o.status?.toLowerCase() === "hazır")} 
+              offers={pendingOffers.filter((o) => o.status?.toLowerCase().trim() === "hazır")} 
+              onViewProducts={handleViewProducts} 
+            />
+          </>
+        );
+
+      case "accepted-offers":
+        return (
+          <>
+            <div className="flex items-center justify-between mb-8">
+              <div>
+                <h1 className="text-2xl md:text-3xl font-heading font-bold text-foreground mb-2">
+                  İletime Alınan Teklifler
+                </h1>
+                <p className="text-muted-foreground">
+                  İletime alınan tekliflerinizi buradan görüntüleyebilirsiniz.
+                </p>
+              </div>
+            </div>
+            <PendingOffers 
+              offers={pendingOffers.filter((o) => o.status?.toLowerCase().trim() === "iletim alındı")} 
+              onViewProducts={handleViewProducts} 
+            />
+          </>
+        );
+
+      case "rejected-offers":
+        return (
+          <>
+            <div className="flex items-center justify-between mb-8">
+              <div>
+                <h1 className="text-2xl md:text-3xl font-heading font-bold text-foreground mb-2">
+                  Reddedilen Teklifler
+                </h1>
+                <p className="text-muted-foreground">
+                  Reddedilen tekliflerinizi buradan görüntüleyebilirsiniz.
+                </p>
+              </div>
+            </div>
+            <PendingOffers 
+              offers={pendingOffers.filter((o) => o.status?.toLowerCase().trim() === "reddedildi")} 
               onViewProducts={handleViewProducts} 
             />
           </>
@@ -826,25 +883,6 @@ const Dashboard = () => {
                   <p className="text-3xl font-heading font-bold text-foreground">{stat.value}</p>
                 </div>
               ))}
-            </div>
-          </>
-        );
-
-      case "products":
-        return (
-          <>
-            <div className="mb-8">
-              <h1 className="text-2xl md:text-3xl font-heading font-bold text-foreground mb-2">
-                Ürünlerim
-              </h1>
-              <p className="text-muted-foreground">Eklediğiniz ürünleri buradan görüntüleyebilirsiniz.</p>
-            </div>
-            <div className="bg-popover rounded-2xl border border-border p-8 md:p-12 text-center">
-              <div className="w-20 h-20 mx-auto rounded-2xl bg-muted flex items-center justify-center mb-6">
-                <Package className="w-10 h-10 text-muted-foreground" />
-              </div>
-              <h2 className="text-xl font-heading font-bold text-foreground mb-2">Henüz Ürün Yok</h2>
-              <p className="text-muted-foreground">Bu bölüm yakında aktif olacak.</p>
             </div>
           </>
         );
