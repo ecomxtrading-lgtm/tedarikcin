@@ -54,6 +54,13 @@ const OfferViewModal = ({ isOpen, onClose, offer }: OfferViewModalProps) => {
             const currency = product.currency || "USD";
             const showPickUpFee = index === 0; // Sadece ilk ürün için göster
 
+            // Debug: product_package kontrolü
+            console.log("🔍 Product Package Debug:", {
+              productName: product.name,
+              productPackage: product.productPackage,
+              productPackageType: typeof product.productPackage,
+            });
+
             return (
               <div
                 key={product.id || index}
