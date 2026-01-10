@@ -709,12 +709,15 @@ const Dashboard = () => {
                 if (subItem.id === "pending-offers") {
                   count = pendingOffers.filter((o) => {
                     const status = normalizedStatus(o.status);
-                    return status !== "hazır" && status !== "iletim alındı" && status !== "reddedildi" && status !== "iptal edildi";
+                    return status !== "hazır" && status !== "iletim alındı" && status !== "hazırlanıyor" && status !== "reddedildi" && status !== "iptal edildi";
                   }).length;
                 } else if (subItem.id === "ready-offers") {
                   count = pendingOffers.filter((o) => normalizedStatus(o.status) === "hazır").length;
                 } else if (subItem.id === "accepted-offers") {
-                  count = pendingOffers.filter((o) => normalizedStatus(o.status) === "iletim alındı").length;
+                  count = pendingOffers.filter((o) => {
+                    const status = normalizedStatus(o.status);
+                    return status === "iletim alındı" || status === "hazırlanıyor";
+                  }).length;
                 } else if (subItem.id === "rejected-offers") {
                   count = pendingOffers.filter((o) => {
                     const status = normalizedStatus(o.status);
@@ -774,7 +777,7 @@ const Dashboard = () => {
             <PendingOffers 
               offers={pendingOffers.filter((o) => {
                 const status = o.status?.toLowerCase().trim();
-                return status !== "hazır" && status !== "iletim alındı" && status !== "reddedildi" && status !== "iptal edildi";
+                return status !== "hazır" && status !== "iletim alındı" && status !== "hazırlanıyor" && status !== "reddedildi" && status !== "iptal edildi";
               })} 
               onViewProducts={handleViewProducts} 
             />
@@ -815,7 +818,10 @@ const Dashboard = () => {
               </div>
             </div>
             <PendingOffers 
-              offers={pendingOffers.filter((o) => o.status?.toLowerCase().trim() === "iletim alındı")} 
+              offers={pendingOffers.filter((o) => {
+                const status = o.status?.toLowerCase().trim();
+                return status === "iletim alındı" || status === "hazırlanıyor";
+              })} 
               onViewProducts={handleViewProducts} 
             />
           </>
