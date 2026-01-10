@@ -533,7 +533,15 @@ const Dashboard = () => {
         createdAt: offer.created_at ? new Date(offer.created_at) : new Date(),
           pickUpFee: pickUpFee,
         products:
-          offer.products?.map((p: any) => ({
+          offer.products?.map((p: any) => {
+            // Debug: veritabanından gelen veriyi kontrol et
+            console.log("🔍 Product data from DB:", {
+              name: p.name,
+              explanation: p.explanation,
+              extra_notes: p.extra_notes,
+            });
+            
+            return {
               id: p.id,
               name: p.name || "",
               explanation: p.explanation || "",
@@ -557,7 +565,8 @@ const Dashboard = () => {
             imageUrls: (p.product_images || [])
               .sort((a: any, b: any) => (a.sort_order || 0) - (b.sort_order || 0))
               .map((img: any) => img.url),
-          })) || [],
+            };
+          }) || [],
         };
       }) || [];
 

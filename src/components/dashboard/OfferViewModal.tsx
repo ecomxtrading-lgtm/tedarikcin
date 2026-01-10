@@ -64,12 +64,12 @@ const OfferViewModal = ({ isOpen, onClose, offer }: OfferViewModalProps) => {
                   <h3 className="text-lg font-heading font-bold text-foreground">
                     {product.name || `Ürün ${index + 1}`}
                   </h3>
-                  {product.explanation && (
+                  {product.explanation && product.explanation.trim() && (
                     <p className="text-sm text-muted-foreground leading-relaxed">
                       {product.explanation}
                     </p>
                   )}
-                  {product.extraNotes && (
+                  {product.extraNotes && product.extraNotes.trim() && (
                     <div className="mt-2 pt-2 border-t border-border/50">
                       <p className="text-xs font-semibold text-foreground mb-1">Ek Notlar:</p>
                       <p className="text-sm text-muted-foreground leading-relaxed whitespace-pre-wrap">
