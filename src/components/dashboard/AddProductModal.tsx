@@ -10,7 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Plus, Upload, Link, Trash2, Package, X, Image } from "lucide-react";
+import { Plus, Upload, Link, Trash2, Package, X, Image, Check } from "lucide-react";
 import { toast } from "sonner";
 
 export interface ProductFormData {
@@ -313,7 +313,7 @@ const AddProductModal = ({
                               setNewImageUrl({ ...newImageUrl, [index]: e.target.value })
                             }
                             placeholder="Resim linki yapıştırın"
-                            className="pl-10 bg-background"
+                            className="pl-10 pr-20 bg-background"
                             onKeyDown={(e) => {
                               if (e.key === "Enter") {
                                 e.preventDefault();
@@ -321,16 +321,28 @@ const AddProductModal = ({
                               }
                             }}
                           />
+                          {/* Yeşil Tik ve Kırmızı Çarpı Butonları */}
+                          {newImageUrl[index]?.trim() && (
+                            <div className="absolute right-2 top-1/2 -translate-y-1/2 flex gap-1">
+                              <button
+                                type="button"
+                                onClick={() => handleAddImageUrl(index)}
+                                className="p-1.5 rounded-full bg-green-500 text-white hover:bg-green-600 transition-colors"
+                                title="Resmi ekle"
+                              >
+                                <Check className="w-4 h-4" />
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => setNewImageUrl({ ...newImageUrl, [index]: "" })}
+                                className="p-1.5 rounded-full bg-red-500 text-white hover:bg-red-600 transition-colors"
+                                title="URL'yi sil"
+                              >
+                                <X className="w-4 h-4" />
+                              </button>
+                            </div>
+                          )}
                         </div>
-                        <Button
-                          type="button"
-                          variant="outline"
-                          size="icon"
-                          onClick={() => handleAddImageUrl(index)}
-                          disabled={!newImageUrl[index]?.trim()}
-                        >
-                          <Plus className="w-4 h-4" />
-                        </Button>
                       </div>
                     </div>
                   )}
