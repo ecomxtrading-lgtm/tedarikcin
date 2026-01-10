@@ -162,12 +162,10 @@ const OfferViewModal = ({ isOpen, onClose, offer }: OfferViewModalProps) => {
                       <span className="text-muted-foreground">Toplam Kutu Sayısı:</span>
                       <span className="font-medium">{formatNumber(product.boxCount)}</span>
                     </div>
-                    {product.productPackage && (
-                      <div className="flex flex-col gap-1">
-                        <span className="text-muted-foreground">Ürün Paketi:</span>
-                        <span className="font-medium">{product.productPackage}</span>
-                      </div>
-                    )}
+                    <div className="flex flex-col gap-1">
+                      <span className="text-muted-foreground">Ürün Paketi:</span>
+                      <span className="font-medium">{product.productPackage || "-"}</span>
+                    </div>
                   </div>
 
                   {/* 3. Sütun: Ürün Birim Fiyatı ve Pick-up Fee (Alt Alta) */}
