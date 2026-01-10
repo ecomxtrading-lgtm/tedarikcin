@@ -59,11 +59,16 @@ const OfferViewModal = ({ isOpen, onClose, offer }: OfferViewModalProps) => {
                 key={product.id || index}
                 className="border border-border rounded-xl p-6 bg-muted/30 space-y-4"
               >
-                {/* Ürün Adı */}
-                <div className="border-b border-border pb-3">
+                {/* Ürün Adı ve Ek Açıklama */}
+                <div className="border-b border-border pb-3 space-y-2">
                   <h3 className="text-lg font-heading font-bold text-foreground">
                     {product.name || `Ürün ${index + 1}`}
                   </h3>
+                  {product.explanation && (
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      {product.explanation}
+                    </p>
+                  )}
                 </div>
 
                 {/* Ürün Görselleri */}
@@ -132,6 +137,10 @@ const OfferViewModal = ({ isOpen, onClose, offer }: OfferViewModalProps) => {
                 {/* Fiyat ve Miktar Bilgileri */}
                 <div className="grid md:grid-cols-2 gap-4 pt-4 border-t border-border">
                   <div className="space-y-2 text-sm">
+                    <div className="flex items-center gap-2">
+                      <span className="text-muted-foreground">Toplam Ürün Sayısı:</span>
+                      <span className="font-medium">{formatNumber(product.count)}</span>
+                    </div>
                     <div className="flex items-center gap-2">
                       <span className="text-muted-foreground">Kutudaki Ürün Sayısı:</span>
                       <span className="font-medium">{formatNumber(product.boxUnits)}</span>
