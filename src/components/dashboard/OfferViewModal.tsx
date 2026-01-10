@@ -143,35 +143,43 @@ const OfferViewModal = ({ isOpen, onClose, offer }: OfferViewModalProps) => {
                 </div>
 
                 {/* Fiyat ve Miktar Bilgileri */}
-                <div className="grid md:grid-cols-2 gap-4 pt-4 border-t border-border">
-                  <div className="space-y-2 text-sm">
-                    <div className="flex items-center gap-2">
+                <div className="grid md:grid-cols-2 gap-6 pt-4 border-t border-border">
+                  {/* Sol Sütun - Miktar ve Fiyat Bilgileri (Alt Alta) */}
+                  <div className="space-y-3 text-sm">
+                    <div className="flex flex-col gap-1">
                       <span className="text-muted-foreground">Toplam Ürün Sayısı:</span>
                       <span className="font-medium">{formatNumber(product.count)}</span>
                     </div>
-                    <div className="flex items-center gap-2">
+                    <div className="flex flex-col gap-1">
                       <span className="text-muted-foreground">Kutudaki Ürün Sayısı:</span>
                       <span className="font-medium">{formatNumber(product.boxUnits)}</span>
                     </div>
-                    <div className="flex items-center gap-2">
+                    <div className="flex flex-col gap-1">
                       <span className="text-muted-foreground">Toplam Kutu Sayısı:</span>
                       <span className="font-medium">{formatNumber(product.boxCount)}</span>
                     </div>
-                    <div className="flex items-center gap-2">
+                    <div className="flex flex-col gap-1">
                       <span className="text-muted-foreground">Ürün Birim Fiyatı:</span>
                       <span className="font-medium">
                         {formatNumber(product.unitPrice, currency)}
                       </span>
                     </div>
                     {showPickUpFee && (
-                      <div className="flex items-center gap-2">
+                      <div className="flex flex-col gap-1">
                         <span className="text-muted-foreground">Pick-up Fee:</span>
                         <span className="font-medium">
                           {formatNumber(product.pickUpFee || offer.pickUpFee, currency)}
                         </span>
                       </div>
                     )}
+                    {product.productPackage && (
+                      <div className="flex flex-col gap-1">
+                        <span className="text-muted-foreground">Ürün Paketi:</span>
+                        <span className="font-medium">{product.productPackage}</span>
+                      </div>
+                    )}
                   </div>
+                  {/* Sağ Sütun - Toplam Fiyat */}
                   <div className="flex items-center justify-end">
                     <div className="text-right">
                       <div className="text-sm text-muted-foreground mb-1">Toplam Fiyat</div>

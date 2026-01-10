@@ -497,6 +497,7 @@ const Dashboard = () => {
           product_length,
           product_height,
           product_weight,
+          product_package,
           box_width,
           box_length,
           box_height,
@@ -533,15 +534,7 @@ const Dashboard = () => {
         createdAt: offer.created_at ? new Date(offer.created_at) : new Date(),
           pickUpFee: pickUpFee,
         products:
-          offer.products?.map((p: any) => {
-            // Debug: veritabanından gelen veriyi kontrol et
-            console.log("🔍 Product data from DB:", {
-              name: p.name,
-              explanation: p.explanation,
-              extra_notes: p.extra_notes,
-            });
-            
-            return {
+          offer.products?.map((p: any) => ({
               id: p.id,
               name: p.name || "",
               explanation: p.explanation || "",
@@ -551,6 +544,7 @@ const Dashboard = () => {
               productLength: p.product_length,
               productHeight: p.product_height,
               productWeight: p.product_weight,
+              productPackage: p.product_package || null,
               boxWidth: p.box_width,
               boxLength: p.box_length,
               boxHeight: p.box_height,
@@ -565,8 +559,7 @@ const Dashboard = () => {
             imageUrls: (p.product_images || [])
               .sort((a: any, b: any) => (a.sort_order || 0) - (b.sort_order || 0))
               .map((img: any) => img.url),
-            };
-          }) || [],
+          })) || [],
         };
       }) || [];
 

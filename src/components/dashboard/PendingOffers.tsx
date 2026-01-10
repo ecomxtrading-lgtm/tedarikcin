@@ -12,6 +12,7 @@ export interface ProductDetail {
   productLength?: number | null;
   productHeight?: number | null;
   productWeight?: number | null;
+  productPackage?: string | null;
   boxWidth?: number | null;
   boxLength?: number | null;
   boxHeight?: number | null;
