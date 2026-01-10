@@ -662,7 +662,7 @@ const Dashboard = () => {
       submenu: [
         { id: "pending-offers" as MenuSection, icon: Clock, label: "Bekleyen Teklifler" },
         { id: "ready-offers" as MenuSection, icon: CheckCircle2, label: "Hazır Teklifler" },
-        { id: "accepted-offers" as MenuSection, icon: Package, label: "İletime Alınan" },
+        { id: "accepted-offers" as MenuSection, icon: Package, label: "İşleme Alınan" },
         { id: "rejected-offers" as MenuSection, icon: X, label: "Reddedilen Teklifler" },
       ],
     },
@@ -804,10 +804,10 @@ const Dashboard = () => {
             <div className="flex items-center justify-between mb-8">
               <div>
                 <h1 className="text-2xl md:text-3xl font-heading font-bold text-foreground mb-2">
-                  İletime Alınan Teklifler
+                  İşleme Alınan Teklifler
                 </h1>
                 <p className="text-muted-foreground">
-                  İletime alınan tekliflerinizi buradan görüntüleyebilirsiniz.
+                  İşleme alınan tekliflerinizi buradan görüntüleyebilirsiniz.
                 </p>
               </div>
             </div>
